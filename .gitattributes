@@ -1,2 +1,30 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+import java.util.Scanner;
+class IEEE754
+ { 
+     public static void main(String[] args) 
+    {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a decimal number: ");
+        float n = scanner.nextFloat(); scanner.close();
+        System.out.println("\nConverting " + n + " to IEEE 754 32-bit format:");
+        int intBits = Float.floatToIntBits(n);
+        //sign recognization
+        int sign = (intBits >> 31) & 1;
+        System.out.println("Sign bit: " + sign);
+        //exponent calculation
+        int exponent = (intBits >> 23) & 0xFF;
+        System.out.println("Exponent : " + exponent);
+        System.out.println("Exponent (Binary): " + String.format("%8s", Integer.toBinaryString(exponent)).replace(' ', '0'));
+        //mantissa calculation
+        int mantissa = intBits & 0x7FFFFF;
+        System.out.println("Mantissa (Binary): " + String.format("%23s", Integer.toBinaryString(mantissa)).replace(' ', '0'));
+        //displaying the converted values
+        String ieee754Binary = String.format("%1s %8s %23s", sign,
+        Integer.toBinaryString(exponent),
+        String.format("%23s", Integer.toBinaryString(mantissa)).replace(' ', '0'));
+        System.out.println("Representation: " + ieee754Binary);
+        // convertion to hexadecimal
+        String hex = String.format("%08X", intBits);
+        System.out.println("Hexadecimal Representation: " + hex);
+    }
+}
